@@ -6,7 +6,7 @@
 </script>
 
 <div class="app">
-	<Header />
+	<Header centered />
 
 	<main>
 		{@render children()}

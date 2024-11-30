@@ -1,6 +1,5 @@
 <svelte:head>
 	<title>Угадай слово — МТИД</title>
-	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <section class="hero">
