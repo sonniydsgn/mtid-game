@@ -6,7 +6,7 @@
 	<h1 class="text-h1 hero__title"><span>Интерактивная игра</span><br /> «Угадай слово»</h1>
 
 	<div class="hero__list">
-		<button class="btn-reset btn btn--primary">Начать игру</button>
+		<a class="btn-reset btn btn--primary" href="/game">Начать игру</a>
 		<button class="btn-reset btn btn--secondary">Как играть</button>
 		<button class="btn-reset btn btn--secondary">Об авторах</button>
 	</div>
