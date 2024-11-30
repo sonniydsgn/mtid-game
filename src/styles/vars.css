@@ -1,0 +1,16 @@
+:root {
+	/* шрифты */
+	--ff-primary: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+
+	/* размеры текста */
+	--font-primary: 24px;
+	--font-sm: 18px;
+
+	/* цвета */
+	--bg-white: rgb(255, 255, 255);
+	--bg-primary: rgb(40, 40, 40);
+	--bg-secondary: rgb(224, 224, 224);
+	--text-white: rgb(255, 255, 255);
+	--text-primary: rgb(40, 40, 40);
+	--text-secondary: rgb(168, 168, 168);
+}

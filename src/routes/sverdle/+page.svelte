@@ -157,7 +157,7 @@
 					back
 				</button>
 
-				{#each ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'] as row}
+				{#each ['йцукенгшщз', 'фывапролд', 'ячсмить'] as row}
 					<div class="row">
 						{#each row as letter}
 							<button

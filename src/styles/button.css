@@ -1,0 +1,42 @@
+.btn-reset {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  font-family: inherit;
+}
+
+.btn-reset:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+  font-size: var(--font-primary);
+  line-height: 1;
+  padding: 24px 32px;
+  border-radius: 100px;
+  transition: transform 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn--primary {
+  background-color: var(--text-primary);
+  color: var(--text-white);
+}
+
+.btn--secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
