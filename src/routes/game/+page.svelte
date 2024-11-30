@@ -4,9 +4,7 @@
 
 		if (event.key === 'Enter' && !submittable) return;
 
-		document
-			.querySelector(`[data-key="${event.key}" i]`)
-			?.dispatchEvent(new MouseEvent('click', { cancelable: true }));
+		console.log(event.key);
 	}
 </script>
 
