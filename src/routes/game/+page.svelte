@@ -16,7 +16,9 @@
 
 <section class="game">
 	<h1 class="visually-hidden">Интерактивная игра «Угадай слово»</h1>
-	пипец
+	
+
+	
 </section>
 
 <style>
