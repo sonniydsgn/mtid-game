@@ -9,6 +9,7 @@
 @import 'styles/vars.css';
 @import 'styles/button.css';
 @import 'styles/headings.css';
+@import 'styles/dialogs.css';
 
 body {
 	min-height: 100vh;
@@ -17,4 +18,5 @@ body {
 	font-family: var(--ff-primary);
 	color: var(--text-primary);
 	font-size: var(--font-primary);
+	overflow: hidden;
 }

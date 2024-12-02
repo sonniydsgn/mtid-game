@@ -1,0 +1,186 @@
+
+.howToPlay {
+  width: 700px;
+  margin: auto auto;
+  padding: 48px 40px;
+  border: none;
+  box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 32px;
+}
+
+.howToPlay:modal {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.howToPlay::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.howToPlay__body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.howToPlay__title {
+  margin-bottom: 20px;
+}
+
+.howToPlay__example {
+  margin-block: 16px;
+}
+
+.howToPlay__text + .howToPlay__text {
+  margin-top: 12px;
+}
+
+.howToPlay__text:last-child {
+  margin-bottom: 32px;
+}
+
+.howToPlay__close-btn {
+  display: flex;
+  max-width: 620px;
+  width: 100%;
+}
+
+.about {
+  width: 700px;
+  margin: auto auto;
+  padding: 48px 40px;
+  border: none;
+  box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 32px;
+}
+
+.about:modal {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.about::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.about__body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.about__title {
+  margin-bottom: 16px;
+}
+
+.about__info {
+  margin-bottom: 16px;
+}
+
+.about__text span {
+  font-weight: 500;
+}
+
+.about__text:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.about__list {
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.about__close-btn {
+  display: flex;
+  max-width: 620px;
+  width: 100%;
+}
+
+.win {
+  width: 700px;
+  margin: auto auto;
+  padding: 48px 40px;
+  border: none;
+  box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 32px;
+}
+
+.win:modal {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.win::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.win__body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.win__image {
+  align-self: center;
+  margin-bottom: 32px;
+}
+
+.win__title {
+  margin-bottom: 16px;
+}
+
+.win__text {
+  margin-bottom: 32px;
+}
+
+.win__close-btn {
+  display: flex;
+  max-width: 620px;
+  width: 100%;
+}
+
+.lose {
+  width: 700px;
+  margin: auto auto;
+  padding: 48px 40px;
+  border: none;
+  box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 32px;
+}
+
+.lose:modal {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.lose::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.lose__body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lose__image {
+  align-self: center;
+  margin-bottom: 32px;
+}
+
+.lose__title {
+  margin-bottom: 16px;
+}
+
+.lose__text {
+  margin-bottom: 32px;
+}
+
+.lose__close-btn {
+  display: flex;
+  max-width: 620px;
+  width: 100%;
+}

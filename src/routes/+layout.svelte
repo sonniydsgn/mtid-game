@@ -4,8 +4,18 @@
 	import Header from '../components/Header.svelte';
 	import '../app.css';
 
+	function closeOnBackDropClick({ target }) {
+		const dialogElement = target.closest('dialog');
+		const isClickedOnBackDrop = target === dialogElement;
+		if (dialogElement && isClickedOnBackDrop) {
+			dialogElement.close();
+		}
+	}
+
 	let { children } = $props();
 </script>
+
+<svelte:window onclick={closeOnBackDropClick} />
 
 <div class="app">
 	<Header centered={$page.url.pathname === '/game' ? false : true} />

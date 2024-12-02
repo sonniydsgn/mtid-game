@@ -1,8 +1,11 @@
 <script>
-	import Letter from '../../components/Letter.svelte';
+	import example_1 from '$lib/images/example_1.png';
+	import example_2 from '$lib/images/example_2.png';
+	import kind_cat from '$lib/images/catik.png';
+	import angry_cat from '$lib/images/catik_angry.png';
 
-	// let won = $derived(data.answers.at(-1) === 'xxxxx');
-	// let i = $derived(won ? -1 : data.answers.length);
+	import Letter from '../../components/Letter.svelte';
+	import { confetti } from '@neoconfetti/svelte';
 
 	// задаем базовые значения
 	const keys = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
@@ -40,19 +43,27 @@
 	let answers = $state([]);
 	let guesses = $state(Array(attempts).fill(''));
 
-	// динамические переменные
-	let value = $state('');
-
 	// смотрю текущее слово
-	let wordIndex = $state(0); // буду добавлять после клика модального окна
+	let wordIndex = $state(0);
 	let currentWord = $derived(words[wordIndex].word);
 	let wordLength = $derived(currentWord.length);
 
-	// проверяю победу
+	// проверяю статус игры
 	let won = $derived(answers[answers.length - 1] === Array(wordLength).fill('x').join(''));
+	let lose = $derived(answers.length === attempts && !won);
 
 	$effect(() => {
-		if (won) reset();
+		if (submittable) check();
+
+		if (lose) {
+			window.lose.showModal();
+		}
+
+		if (won) {
+			setTimeout(() => {
+				window.win.showModal();
+			}, 100);
+		}
 	});
 
 	// смотрю индекс текущих слов
@@ -60,14 +71,20 @@
 	let currentGuess = $derived(guesses[guessIndex] || '');
 
 	// проверяю можно ли принять слово
-	let submittable = $derived(currentGuess.length - 1 === wordLength);
+	let submittable = $derived(currentGuess.length === wordLength);
+
+	function next() {
+		reset();
+
+		wordIndex += 1;
+
+		let finished = words.length === wordIndex;
+		if (finished) window.location.href = '/end';
+	}
 
 	function reset() {
 		guesses = Array(attempts).fill('');
 		answers = [];
-
-		wordIndex += 1;
-		console.log('победа!!');
 	}
 
 	function check() {
@@ -107,16 +124,12 @@
 
 		if (event.metaKey) return;
 
-		if (submittable) check();
-
 		if (key === 'Backspace') {
 			guesses[guessIndex] = guesses[guessIndex].slice(0, -1);
 		} else if (keys.includes(key) & (currentGuess.length < wordLength)) {
 			guesses[guessIndex] += key;
 		}
 	}
-
-	$inspect(currentGuess.length);
 </script>
 
 <svelte:head>
@@ -124,6 +137,18 @@
 </svelte:head>
 
 <svelte:window onkeydown={keydown} />
+
+{#if won}
+	<div
+		style="position: absolute; left: 50%; top: 30%"
+		use:confetti={{
+			force: 0.7,
+			stageWidth: window.innerWidth,
+			stageHeight: window.innerHeight,
+			colors: ['#ff3e00', '#40b3ff', '#676778']
+		}}
+	></div>
+{/if}
 
 <section class="game">
 	<h1 class="visually-hidden">Интерактивная игра «Угадай слово»</h1>
@@ -145,6 +170,72 @@
 		{/each}
 	</div>
 </section>
+
+<div class="dialog__list">
+	<dialog class="howToPlay" id="howToPlay">
+		<div class="howToPlay__body">
+			<h3 class="text-h3 howToPlay__title">Как играть</h3>
+
+			<div class="howToPlay__info">
+				<p class="howToPlay__text">
+					Загадывается слово связанное со МТИД. Чтобы угадать у вас есть 7 попыток. Например:
+				</p>
+
+				<img src={example_1} alt="/" class="howToPlay__example" />
+
+				<p class="howToPlay__text">
+					На каждой попытке игрок может ввести любое слово, которое имеет столько же букв, сколько
+					и загаданное
+				</p>
+				<p class="howToPlay__text">
+					Если буква есть в загаданном слове —<br />подсвечивается жёлтым
+				</p>
+				<p class="howToPlay__text">
+					Если же она находится ещё на своём месте —<br />подсвечивается зелёным
+				</p>
+
+				<img src={example_2} alt="/" class="howToPlay__example" />
+
+				<p class="howToPlay__text">В этот раз мы отгадали слово! Теперь ваш черёд</p>
+			</div>
+
+			<form method="dialog" class="howToPlay__close-btn-wrapper">
+				<button class="btn-reset btn btn--primary howToPlay__close-btn" type="submit">Хорошо</button
+				>
+			</form>
+		</div>
+	</dialog>
+
+	<dialog class="win" id="win" onclose={next}>
+		<div class="win__body">
+			<img src={kind_cat} alt="/" class="win__image" width="410" height="261" />
+
+			<h3 class="text-h3 win__title">Угадали</h3>
+
+			<p class="win__text">{words[wordIndex].desc}</p>
+
+			<form method="dialog" class="win__close-btn-wrapper">
+				<button class="btn-reset btn btn--primary win__close-btn" type="submit">Продолжить</button>
+			</form>
+		</div>
+	</dialog>
+
+	<dialog class="lose" id="lose" onclose={reset}>
+		<div class="lose__body">
+			<img src={angry_cat} alt="/" class="lose__image" width="300" height="300" />
+
+			<h3 class="text-h3 lose__title">Бедолаги</h3>
+
+			<p class="lose__text">Даже не знаю, что вам сказать можно...</p>
+
+			<form method="dialog" class="lose__close-btn-wrapper">
+				<button class="btn-reset btn btn--primary lose__close-btn" type="submit"
+					>Начать заново</button
+				>
+			</form>
+		</div>
+	</dialog>
+</div>
 
 <style>
 	.game {

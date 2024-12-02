@@ -8,7 +8,10 @@
 	<img src={logo} class="header__logo" width="213" height="25" alt="" />
 
 	{#if !centered}
-		<button class="btn-reset btn btn--icon btn--tertiary">
+		<button
+			class="btn-reset btn btn--icon btn--tertiary"
+			onclick={() => window.howToPlay.showModal()}
+		>
 			Правила игры
 
 			<svg
