@@ -242,7 +242,7 @@
 		display: flex;
 		flex-direction: column;
 		place-items: center;
-		padding-block-start: 56px;
+		padding-block-start: 32px;
 	}
 
 	.game__grid {

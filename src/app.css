@@ -18,5 +18,8 @@ body {
 	font-family: var(--ff-primary);
 	color: var(--text-primary);
 	font-size: var(--font-primary);
-	overflow: hidden;
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
 }

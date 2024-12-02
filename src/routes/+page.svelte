@@ -39,9 +39,9 @@
 		</div>
 
 		<ul class="about__list">
-			<li class="about__item">Алексей Калинин (писька вредная)</li>
-			<li class="about__item">Анатолий Шредер (самый крутой, после верхнего лоха)</li>
-			<li class="about__item">Парфирьев Тимофей (лысая в откисе)</li>
+			<li class="about__item">Калинин Алексей</li>
+			<li class="about__item">Шредер Анатолий</li>
+			<li class="about__item">Парфирьев Тимофей</li>
 			<li class="about__item">Воскресенская Евгения</li>
 			<li class="about__item">Толстенко Анастасия</li>
 			<li class="about__item">Семенова Софья</li>

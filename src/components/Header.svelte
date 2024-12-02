@@ -5,7 +5,9 @@
 </script>
 
 <header class="header" class:header--center={centered}>
-	<img src={logo} class="header__logo" width="213" height="25" alt="" />
+	<a href="/" class="header__link" title="На главную">
+		<img src={logo} class="header__logo" width="213" height="25" alt="" />
+	</a>
 
 	{#if !centered}
 		<button

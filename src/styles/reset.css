@@ -64,6 +64,10 @@ address {
 }
 
 /* ручной сброс */
+.scroll-lock {
+	overflow: hidden;
+}
+
 .list-reset {
 	margin: 0;
 	padding: 0;
