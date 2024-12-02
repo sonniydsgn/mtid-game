@@ -45,7 +45,7 @@ address {
 	font-style: normal;
 }
 
-dialog {
+/* dialog {
 	display: block;
 	position: fixed;
 	margin: auto;
@@ -53,7 +53,7 @@ dialog {
 	border: none;
 	width: fit-content;
 	height: fit-content;
-}
+} */
 
 .icon {
 	--size: 16px;
