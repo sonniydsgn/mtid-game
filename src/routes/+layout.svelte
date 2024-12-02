@@ -1,4 +1,6 @@
 <script>
+	import { page } from '$app/stores';
+
 	import Header from '../components/Header.svelte';
 	import '../app.css';
 
@@ -6,7 +8,7 @@
 </script>
 
 <div class="app">
-	<Header centered />
+	<Header centered={$page.url.pathname === '/game' ? false : true} />
 
 	<main>
 		{@render children()}
