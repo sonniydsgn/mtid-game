@@ -9,11 +9,12 @@
 	import { onMount } from 'svelte';
 
 	// задаем базовые значения
-	const keys = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+	const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+	const keys = alphabet + alphabet.toUpperCase()
 
 	const words = [
 		{
-			word: 'БАллы',
+			word: 'баллы',
 			desc: 'Проходной балл на бюджетную основу специальности МТИД в 2024 году составил 225 баллов'
 		},
 		{
@@ -133,7 +134,7 @@
 
 		if (key === 'Backspace') {
 			guesses[guessIndex] = guesses[guessIndex].slice(0, -1);
-		} else if ((keys.includes(key) || keys.toUpperCase().includes(key))  & (currentGuess.length < wordLength)) {
+		} else if (keys.includes(key)  & (currentGuess.length < wordLength)) {
 			guesses[guessIndex] += key;
 		}
 	}
@@ -141,6 +142,7 @@
 	onMount(() => {
 		setlevel()
 	})
+	
 </script>
 
 <svelte:head>
