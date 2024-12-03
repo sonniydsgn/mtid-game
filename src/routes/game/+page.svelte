@@ -75,10 +75,6 @@
 	// проверяю можно ли принять слово
 	let submittable = $derived(currentGuess.length === wordLength);
 
-	function setlevel() {
-		window.localStorage.setItem('level', wordIndex + 1 + '/' + words.length);
-	}
-
 	function next() {
 		reset();
 
@@ -86,8 +82,6 @@
 
 		let finished = words.length === wordIndex;
 		if (finished) window.location.href = '/end';
-
-		setlevel()
 	}
 
 	function reset() {
@@ -139,10 +133,9 @@
 		}
 	}
 
-	onMount(() => {
-		setlevel()
-	})
-	
+	const currentLevel = $derived(wordIndex + 1 + '/' + words.length)
+
+	$inspect(currentLevel)
 </script>
 
 <svelte:head>
