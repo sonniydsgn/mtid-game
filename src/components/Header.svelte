@@ -1,13 +1,26 @@
 <script>
-	export let centered = false;
+	const {centered = false} = $props();
 
 	import logo from '$lib/images/logo.svg';
+	import { onMount } from 'svelte';
+
+	let level = $state(null)
+
+	onMount(() => {
+		level = window.localStorage.getItem('level')
+	})
 </script>
 
 <header class="header" class:header--center={centered}>
-	<a href="/" class="header__link" title="На главную">
-		<img src={logo} class="header__logo" width="213" height="25" alt="" />
-	</a>
+	<div class="header__title">
+		<a href="/" class="header__link" title="На главную">
+			<img src={logo} class="header__logo" width="213" height="25" alt="" />
+		</a>
+<!-- 
+		{#if level && !centered}
+			<span class="header__level">{level}</span>
+		{/if} -->
+	</div>
 
 	{#if !centered}
 		<button
@@ -39,6 +52,17 @@
 		justify-content: space-between;
 		padding-inline: 64px;
 		margin-block-start: 48px;
+	}
+
+	.header__title {
+		display: flex;
+		align-items: center;
+	}
+
+	.header__level {
+		font-weight: 500;
+		padding-left: 16px;
+		border-left: 1px solid #e0e0e0;
 	}
 
 	.header--center {

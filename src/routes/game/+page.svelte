@@ -6,13 +6,14 @@
 
 	import Letter from '../../components/Letter.svelte';
 	import { confetti } from '@neoconfetti/svelte';
+	import { onMount } from 'svelte';
 
 	// задаем базовые значения
 	const keys = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
 
 	const words = [
 		{
-			word: 'баллы',
+			word: 'БАллы',
 			desc: 'Проходной балл на бюджетную основу специальности МТИД в 2024 году составил 225 баллов'
 		},
 		{
@@ -45,7 +46,7 @@
 
 	// смотрю текущее слово
 	let wordIndex = $state(0);
-	let currentWord = $derived(words[wordIndex].word);
+	let currentWord = $derived(words[wordIndex].word.toLowerCase());
 	let wordLength = $derived(currentWord.length);
 
 	// проверяю статус игры
@@ -73,6 +74,10 @@
 	// проверяю можно ли принять слово
 	let submittable = $derived(currentGuess.length === wordLength);
 
+	function setlevel() {
+		window.localStorage.setItem('level', wordIndex + 1 + '/' + words.length);
+	}
+
 	function next() {
 		reset();
 
@@ -80,6 +85,8 @@
 
 		let finished = words.length === wordIndex;
 		if (finished) window.location.href = '/end';
+
+		setlevel()
 	}
 
 	function reset() {
@@ -88,7 +95,7 @@
 	}
 
 	function check() {
-		const letters = currentGuess.split('');
+		const letters = currentGuess.toLowerCase().split('');
 
 		const available = Array.from(currentWord);
 		const answer = Array(wordLength).fill('_');
@@ -126,10 +133,14 @@
 
 		if (key === 'Backspace') {
 			guesses[guessIndex] = guesses[guessIndex].slice(0, -1);
-		} else if (keys.includes(key) & (currentGuess.length < wordLength)) {
+		} else if ((keys.includes(key) || keys.toUpperCase().includes(key))  & (currentGuess.length < wordLength)) {
 			guesses[guessIndex] += key;
 		}
 	}
+
+	onMount(() => {
+		setlevel()
+	})
 </script>
 
 <svelte:head>
