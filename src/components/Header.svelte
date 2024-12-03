@@ -1,14 +1,12 @@
 <script>
-	const {centered = false} = $props();
+	import { getContext } from 'svelte';
+
+	const { centered = false } = $props();
 
 	import logo from '$lib/images/logo.svg';
 	import { onMount } from 'svelte';
 
-	let level = $state(null)
-
-	onMount(() => {
-		level = window.localStorage.getItem('level')
-	})
+	const level = getContext('level');
 </script>
 
 <header class="header" class:header--center={centered}>
@@ -16,10 +14,10 @@
 		<a href="/" class="header__link" title="На главную">
 			<img src={logo} class="header__logo" width="213" height="25" alt="" />
 		</a>
-<!-- 
+
 		{#if level && !centered}
-			<span class="header__level">{level}</span>
-		{/if} -->
+			<span class="header__level">{level.current + '/' + level.all + ' уровень'}</span>
+		{/if}
 	</div>
 
 	{#if !centered}
@@ -61,7 +59,10 @@
 
 	.header__level {
 		font-weight: 500;
+		margin-left: 14px;
 		padding-left: 16px;
+		font-size: 18px;
+		font-weight: 400;
 		border-left: 1px solid #e0e0e0;
 	}
 

@@ -1,8 +1,12 @@
 <script>
 	import { page } from '$app/stores';
+	import { setContext } from 'svelte';
 
 	import Header from '../components/Header.svelte';
 	import '../app.css';
+
+	const level = $state({ current: 0, all: 0 });
+	setContext('level', level);
 
 	function closeOnBackDropClick({ target }) {
 		const dialogElement = target.closest('dialog');

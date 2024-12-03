@@ -5,39 +5,14 @@
 	import angry_cat from '$lib/images/catik_angry.png';
 
 	import Letter from '../../components/Letter.svelte';
+	import { words } from './data';
+
+	import { getContext } from 'svelte';
 	import { confetti } from '@neoconfetti/svelte';
-	import { onMount } from 'svelte';
 
 	// задаем базовые значения
 	const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
-	const keys = alphabet + alphabet.toUpperCase()
-
-	const words = [
-		{
-			word: 'баллы',
-			desc: 'Проходной балл на бюджетную основу специальности МТИД в 2024 году составил 225 баллов'
-		},
-		{
-			word: 'дизайн',
-			desc: 'Дизайн - ключевая дисциплина, включающая создание графики, интерфейсов и мультимедийного контента'
-		},
-		{
-			word: 'сессия',
-			desc: 'Сессия - это период сдачи экзаменов. В ПНИПУ сессия проходит в январе и июне. Успешная сдача экзаменов влияет на стипендию'
-		},
-		{
-			word: 'куратор',
-			desc: 'Куратор - преподаватель, который помогает студентам в учебном процессе и адаптации'
-		},
-		{
-			word: 'практика',
-			desc: 'Практика - это форма учебной деятельности, которая позволяет студентам получать опыт работы в реальных условиях и развивать профессиональные навыки. Студенты специальности МТИД могут пройти практику в таких организациях как GreenData, RIO Soft, Parma Technologies Group и других ведущих IT-компаниях'
-		},
-		{
-			word: 'стипендия',
-			desc: 'Стипендия - это денежное пособие учащимся высшего учебного заведения. Академическая стипендия в ПНИПУ составляет 3 036  рублей, но может повышаться за отличную учебу. Губернаторская стипендия составляет 5 750 рублей'
-		}
-	];
+	const keys = alphabet + alphabet.toUpperCase();
 
 	const attempts = 7;
 
@@ -53,8 +28,12 @@
 	// проверяю статус игры
 	let won = $derived(answers[answers.length - 1] === Array(wordLength).fill('x').join(''));
 	let lose = $derived(answers.length === attempts && !won);
+	const level = getContext('level');
 
 	$effect(() => {
+		level.current = wordIndex + 1;
+		level.all = words.length;
+
 		if (submittable) check();
 
 		if (lose) {
@@ -128,18 +107,14 @@
 
 		if (key === 'Backspace') {
 			guesses[guessIndex] = guesses[guessIndex].slice(0, -1);
-		} else if (keys.includes(key)  & (currentGuess.length < wordLength)) {
+		} else if (keys.includes(key) & (currentGuess.length < wordLength)) {
 			guesses[guessIndex] += key;
 		}
 	}
-
-	const currentLevel = $derived(wordIndex + 1 + '/' + words.length)
-
-	$inspect(currentLevel)
 </script>
 
 <svelte:head>
-	<title>Первое слово — Интерактивная игра «Угадай слово»</title>
+	<title>{level.current} уровень — Интерактивная игра «Угадай слово»</title>
 </svelte:head>
 
 <svelte:window onkeydown={keydown} />
