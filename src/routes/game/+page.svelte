@@ -4,15 +4,20 @@
 	import kind_cat from '$lib/images/catik.png';
 	import angry_cat from '$lib/images/catik_angry.png';
 
-	import Letter from '../../components/Letter.svelte';
 	import { words } from './data';
+
+	import Letter from '../../components/Letter.svelte';
+	import Toast from '../../components/Toast.svelte';
 
 	import { getContext } from 'svelte';
 	import { confetti } from '@neoconfetti/svelte';
 
 	// задаем базовые значения
-	const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
-	const keys = alphabet + alphabet.toUpperCase();
+	const ruAlphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+	const engAlphabet = 'abcdefghijklmnopqrstuvwxyz';
+	const ruKeys = ruAlphabet + ruAlphabet.toUpperCase();
+	const engKeys = engAlphabet + engAlphabet.toUpperCase();
+	let wrongkeys = $state(false);
 
 	const attempts = 7;
 
@@ -105,10 +110,13 @@
 
 		if (event.metaKey) return;
 
+		wrongkeys = false;
 		if (key === 'Backspace') {
 			guesses[guessIndex] = guesses[guessIndex].slice(0, -1);
-		} else if (keys.includes(key) & (currentGuess.length < wordLength)) {
+		} else if (ruKeys.includes(key) && currentGuess.length < wordLength) {
 			guesses[guessIndex] += key;
+		} else if (engKeys.includes(key)) {
+			wrongkeys = true;
 		}
 	}
 </script>
@@ -119,16 +127,8 @@
 
 <svelte:window onkeydown={keydown} />
 
-{#if won}
-	<div
-		style="position: absolute; left: 50%; top: 30%"
-		use:confetti={{
-			force: 0.7,
-			stageWidth: window.innerWidth,
-			stageHeight: window.innerHeight,
-			colors: ['#ff3e00', '#40b3ff', '#676778']
-		}}
-	></div>
+{#if wrongkeys}
+	<Toast text="Переключите раскладку клавиатуры на русский язык" icon="ℹ️" />
 {/if}
 
 <section class="game">
@@ -188,8 +188,25 @@
 	</dialog>
 
 	<dialog class="win" id="win" onclose={next}>
+		{#if won}
+			<div
+				style="position: fixed; left: 50%; top: 30%;"
+				use:confetti={{
+					force: 0.7,
+					stageWidth: window.innerWidth,
+					stageHeight: window.innerHeight,
+					colors: ['#ff3e00', '#40b3ff', '#676778']
+				}}
+			></div>
+		{/if}
 		<div class="win__body">
-			<img src={kind_cat} alt="/" class="win__image" width="410" height="261" />
+			<img
+				src={words[wordIndex].image || win_cat}
+				alt="/"
+				class="win__image"
+				width="400"
+				height="260"
+			/>
 
 			<h3 class="text-h3 win__title">Угадали</h3>
 
@@ -240,5 +257,9 @@
 	.game__row {
 		display: flex;
 		gap: var(--gap);
+	}
+
+	.win__image {
+		border-radius: 16px;
 	}
 </style>

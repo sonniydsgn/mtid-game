@@ -30,16 +30,24 @@
 
 		&.exact {
 			font-weight: 600;
-			background-color: #6aaa64;
+			background-color: #419239;
 			color: #fff;
-			box-shadow: transparents;
+			box-shadow: 0 0 16px 0 #41923960;
 		}
 
 		&.close {
 			font-weight: 600;
-			background-color: #d1b036;
-			color: #fff;
-			box-shadow: transparents;
+			background-color: #ffe37a;
+			transform: rotate(-4deg);
+			box-shadow: unset;
+
+			&:nth-child(2n) {
+				transform: rotate(3deg);
+			}
+
+			&:nth-child(1n):last-child {
+				transform: rotate(2deg);
+			}
 		}
 
 		&.missing {

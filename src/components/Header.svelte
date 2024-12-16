@@ -1,13 +1,24 @@
 <script>
+	import { onMount } from 'svelte';
 	import { getContext } from 'svelte';
 
-	const { centered = false } = $props();
-
 	import logo from '$lib/images/logo.svg';
-	import { onMount } from 'svelte';
 
+	const { centered = false } = $props();
 	const level = getContext('level');
+
+	let isFullscreen = $state(false);
+
+	const changeFullscreen = () => {
+		if (isFullscreen) {
+			document.exitFullscreen();
+		} else {
+			document.documentElement.requestFullscreen();
+		}
+	};
 </script>
+
+<svelte:document on:fullscreenchange={() => (isFullscreen = document.fullscreenElement !== null)} />
 
 <header class="header" class:header--center={centered}>
 	<div class="header__title">
@@ -42,19 +53,52 @@
 			</svg>
 		</button>
 	{/if}
+
+	<button
+		class="btn-reset btn btn--icon btn--secondary header__fs-btn"
+		aria-label={isFullscreen ? 'Выйти из полного экрана' : 'Открыть в полный экран'}
+		onclick={changeFullscreen}
+	>
+		{#if isFullscreen}
+			<svg
+				class="icon"
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				><path
+					fill="currentColor"
+					d="M6 21v-3H3v-2h5v5zm10 0v-5h5v2h-3v3zM3 8V6h3V3h2v5zm13 0V3h2v3h3v2z"
+				/></svg
+			>
+		{:else}
+			<svg
+				class="icon"
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				><path
+					fill="currentColor"
+					d="M3 21v-5h2v3h3v2zm13 0v-2h3v-3h2v5zM3 8V3h5v2H5v3zm16 0V5h-3V3h5v5z"
+				/></svg
+			>
+		{/if}
+	</button>
 </header>
 
 <style>
 	.header {
 		display: flex;
-		justify-content: space-between;
 		padding-inline: 64px;
-		margin-block-start: 48px;
+		margin-block-start: 32px;
+		align-items: center;
 	}
 
 	.header__title {
 		display: flex;
 		align-items: center;
+		margin-right: auto;
 	}
 
 	.header__level {
@@ -66,11 +110,12 @@
 		border-left: 1px solid #e0e0e0;
 	}
 
-	.header--center {
-		align-self: center;
-	}
-
 	.header__logo {
 		object-fit: none;
+	}
+
+	.header__fs-btn {
+		padding: 12px;
+		margin-left: 24px;
 	}
 </style>
