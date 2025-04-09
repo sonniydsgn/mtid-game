@@ -201,7 +201,7 @@
 		{/if}
 		<div class="win__body">
 			<img
-				src={words[wordIndex].image || win_cat}
+				src={words[wordIndex].image || kind_cat}
 				alt="/"
 				class="win__image"
 				width="400"
